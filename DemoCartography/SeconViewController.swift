@@ -28,18 +28,26 @@ class SeconViewController: UIViewController {
     let dolarValueLabel = UILabel(frame: CGRect.zero)
     
     let labelsGroup = UIStackView()
-    let labelsGroupAndUserGroup = UIStackView()
+    let labelsGroupAndUserLabel = UIStackView()
+    var constGroup = ConstraintGroup()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.alpha = 0.5
+        self.view.backgroundColor = UIColor.gray
         
         self.addViews()
         self.addConstraintsToAllViews()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
     }
+    
     
     func addViews() {
         
@@ -49,7 +57,10 @@ class SeconViewController: UIViewController {
         
         //USER LABEL
         userLabel.backgroundColor = UIColor.green
-        userLabel.text = "User Name"
+        userLabel.text = "User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name"
+        userLabel.numberOfLines = 0
+        userLabel.lineBreakMode = .byWordWrapping
+        
         self.view.addSubview(userLabel)
         
         //EURO CURRENCY LABEL
@@ -102,14 +113,14 @@ class SeconViewController: UIViewController {
         labelsGroup.addArrangedSubview(dolarValueLabel)
         
         //SECOND GROUP STACKVIEW
-        labelsGroupAndUserGroup.alignment = .fill
-        labelsGroupAndUserGroup.axis = .vertical
-        labelsGroupAndUserGroup.distribution = .equalSpacing
-        labelsGroupAndUserGroup.spacing = 10
+        labelsGroupAndUserLabel.alignment = .fill
+        labelsGroupAndUserLabel.axis = .vertical
+        labelsGroupAndUserLabel.distribution = .equalSpacing
+        labelsGroupAndUserLabel.spacing = 10
         
-        labelsGroupAndUserGroup.addArrangedSubview(userLabel)
-        labelsGroupAndUserGroup.addArrangedSubview(labelsGroup)
-        self.view.addSubview(labelsGroupAndUserGroup)
+        labelsGroupAndUserLabel.addArrangedSubview(userLabel)
+        labelsGroupAndUserLabel.addArrangedSubview(labelsGroup)
+        self.view.addSubview(labelsGroupAndUserLabel)
     }
     
     func addConstraintsToAllViews() {
@@ -123,18 +134,10 @@ class SeconViewController: UIViewController {
             image.top == image.superview!.top + 100
             image.leading == image.superview!.leading + 15
         }
+
         
-        //USER LABEL
-        constrain(self.userLabel) { (user) in
-            
-            user.width == 200
-            user.height == 30
-        }
-        
-       self.addConstraintsTolabelsGroup()
-        
-        //SECOND GROUP
-        constrain(self.imgView, self.labelsGroupAndUserGroup) { (image, secondG) in
+        //labels Group And User Group GROUP
+        self.constGroup = constrain(self.imgView, self.labelsGroupAndUserLabel) { (image, secondG) in
             
             if let supView = secondG.superview {
                 
@@ -146,21 +149,7 @@ class SeconViewController: UIViewController {
 
     }
     
-    
-    
-    func addConstraintsTolabelsGroup() {
-        
-        //FIRST GROUP
-        constrain(self.euroCurrencyLabel, self.euroValueLabel) { (currencyLabel, valueLabel) in
-            
-//            currencyLabel.width == 70
-//            currencyLabel.height == 30
-//            
-//            valueLabel.width == 70
-//            valueLabel.height == 30
-        }
-    }
-    
+
     
     
 }
