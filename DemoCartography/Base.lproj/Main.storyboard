@@ -83,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="140" y="138.98050974512745"/>
         </scene>
-        <!--Secon View Controller-->
+        <!--Constraints View Controller-->
         <scene sceneID="3JL-EE-2he">
             <objects>
-                <viewController id="cuX-8M-5wK" customClass="SeconViewController" customModule="DemoCartography" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cuX-8M-5wK" customClass="ConstraintsViewController" customModule="DemoCartography" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vWc-bi-C1A"/>
                         <viewControllerLayoutGuide type="bottom" id="SV1-Fy-Dth"/>
@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="1125" y="131"/>
         </scene>
-        <!--Prototype View Controller-->
+        <!--Animation View Controller-->
         <scene sceneID="vI5-q0-Axf">
             <objects>
-                <viewController id="5bR-Tz-PEJ" customClass="PrototypeViewController" customModule="DemoCartography" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5bR-Tz-PEJ" customClass="AnimationViewController" customModule="DemoCartography" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rwr-Ka-uVv"/>
                         <viewControllerLayoutGuide type="bottom" id="3Ye-Dq-vTR"/>

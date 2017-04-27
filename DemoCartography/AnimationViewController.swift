@@ -1,5 +1,5 @@
 //
-//  PrototypeViewController.swift
+//  AnimationViewController.swift
 //  DemoCartography
 //
 //  Created by winify on 4/27/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrototypeViewController: UIViewController {
+class AnimationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

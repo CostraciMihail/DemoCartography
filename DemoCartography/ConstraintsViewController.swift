@@ -1,5 +1,5 @@
 //
-//  SeconViewController.swift
+//  ConstraintsViewController.swift
 //  DemoCartography
 //
 //  Created by winify on 4/26/17.
@@ -10,7 +10,7 @@ import UIKit
 import Cartography
 
 
-class SeconViewController: UIViewController {
+class ConstraintsViewController: UIViewController {
     
     let imgView = UIImageView(frame: CGRect.zero)
     let userLabel = UILabel(frame: CGRect.zero)
