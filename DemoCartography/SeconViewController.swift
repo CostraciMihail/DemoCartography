@@ -40,14 +40,16 @@ class SeconViewController: UIViewController {
         
         self.addViews()
         self.addConstraintsToAllViews()
-
+    
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { 
+        }
     }
-    
     
     func addViews() {
         
@@ -57,7 +59,7 @@ class SeconViewController: UIViewController {
         
         //USER LABEL
         userLabel.backgroundColor = UIColor.green
-        userLabel.text = "User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name User Name"
+        userLabel.text = " "
         userLabel.numberOfLines = 0
         userLabel.lineBreakMode = .byWordWrapping
         
@@ -127,29 +129,37 @@ class SeconViewController: UIViewController {
         
         //IMAGE VIEW
         constrain(self.imgView) { (image) in
-            
             image.width == 80
             image.height == 80
             
             image.top == image.superview!.top + 100
             image.leading == image.superview!.leading + 15
         }
-
         
         //labels Group And User Group GROUP
-        self.constGroup = constrain(self.imgView, self.labelsGroupAndUserLabel) { (image, secondG) in
+        constrain(self.imgView, self.labelsGroupAndUserLabel) { (image, secondG) in
             
             if let supView = secondG.superview {
-                
                 secondG.leading == image.trailing + 15
                 secondG.top == supView.top + 100
                 secondG.trailing == supView.trailing - 15
+                secondG.bottom == supView.bottom - 300
             }
         }
+        
+        constrain(self.userLabel, self.labelsGroup) { ( user, group) in
 
+//            user.height == 30
+//            if let supView = user.superview {
+//                user.top == supView.top
+//                user.leading == supView.leading
+//                user.trailing == supView.trailing
+//                user.bottom == group.top + 5
+//            }
+        }
+    
+    
+    
     }
-    
-
-    
     
 }

@@ -13,6 +13,7 @@
 		4793D13C1EAF83C7001A04AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4793D13A1EAF83C7001A04AE /* Main.storyboard */; };
 		4793D13E1EAF83C7001A04AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4793D13D1EAF83C7001A04AE /* Assets.xcassets */; };
 		4793D1411EAF83C7001A04AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4793D13F1EAF83C7001A04AE /* LaunchScreen.storyboard */; };
+		47C93A2D1EB22E6100EE1E51 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C93A2C1EB22E6100EE1E51 /* PrototypeViewController.swift */; };
 		C4618910A7A04B4F930F1C78 /* Pods_DemoCartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 860C62165A1F2C54788DB243 /* Pods_DemoCartography.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		4793D13D1EAF83C7001A04AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4793D1401EAF83C7001A04AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4793D1421EAF83C7001A04AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47C93A2C1EB22E6100EE1E51 /* PrototypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrototypeViewController.swift; sourceTree = "<group>"; };
 		860C62165A1F2C54788DB243 /* Pods_DemoCartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoCartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF73A9970D1B24DC65AE4FEF /* Pods-DemoCartography.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCartography.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoCartography/Pods-DemoCartography.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +68,7 @@
 				4793D1361EAF83C7001A04AE /* AppDelegate.swift */,
 				4793D1381EAF83C7001A04AE /* ViewController.swift */,
 				474D053E1EB0C038001F1327 /* SeconViewController.swift */,
+				47C93A2C1EB22E6100EE1E51 /* PrototypeViewController.swift */,
 				4793D13A1EAF83C7001A04AE /* Main.storyboard */,
 				4793D13D1EAF83C7001A04AE /* Assets.xcassets */,
 				4793D13F1EAF83C7001A04AE /* LaunchScreen.storyboard */,
@@ -215,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				474D053F1EB0C038001F1327 /* SeconViewController.swift in Sources */,
+				47C93A2D1EB22E6100EE1E51 /* PrototypeViewController.swift in Sources */,
 				4793D1391EAF83C7001A04AE /* ViewController.swift in Sources */,
 				4793D1371EAF83C7001A04AE /* AppDelegate.swift in Sources */,
 			);
