@@ -22,13 +22,16 @@ class AnimationViewController: UIViewController {
 
         
         //UNCOMMENT TO DRAW STRAIT LINE
-        let drawV = DrawView(frame: CGRect(x: 10, y: 30, width: 200, height: 200))
-        drawV.backgroundColor = UIColor.white
-        self.view.addSubview(drawV)
+//        let drawV = DrawView(frame: CGRect(x: 10, y: 30, width: 200, height: 200))
+//        drawV.backgroundColor = UIColor.white
+//        self.view.addSubview(drawV)
 
         
         //UNCOMMENT TO ANIMATE DRAWING CIRCLE
 //        self.animateDrawingCircle()
+        
+        
+        self.animateDrawingXLine()
         
     }
     
@@ -113,6 +116,79 @@ class AnimationViewController: UIViewController {
         
     }
     
+    
+    func animateDrawingXLine() {
+        
+        let laySize = CGSize(width: 200, height: 200)
+        let lineLenght = Float(80)
+        let fromPoint = coordinatesForLinesInSquare(withSize: laySize, lineLenght: lineLenght, withShowStyle: .xStyle)
+        
+        // X VIEW
+        //BEZIER
+        let xPath = UIBezierPath()
+        xPath.lineWidth = 5
+        xPath.move(to: CGPoint(x: fromPoint.firstLineStartPoint.x, y: fromPoint.firstLineStartPoint.y))
+        xPath.addLine(to: CGPoint(x: fromPoint.firstLineEndPoint.x, y: fromPoint.firstLineEndPoint.y))
+
+        xPath.move(to: CGPoint(x: fromPoint.secondLineStartPoint.x, y: fromPoint.secondLineStartPoint.y))
+        xPath.addLine(to: CGPoint(x: fromPoint.secondLineEndPoint.x, y: fromPoint.secondLineEndPoint.y))
+        
+        //LAYER
+        let firstSL = CAShapeLayer()
+        firstSL.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
+        firstSL.path = xPath.cgPath
+        firstSL.fillColor = UIColor.clear.cgColor
+        firstSL.strokeColor = UIColor.black.cgColor
+        firstSL.backgroundColor = UIColor.red.cgColor
+        self.view.layer.addSublayer(firstSL)
+        
+        //PARALEL VIEW
+        //BEZIER
+        let paralelPath = UIBezierPath()
+        paralelPath.lineWidth = 5
+        paralelPath.move(to: CGPoint(x: fromPoint.firstLineStartPoint.x, y: fromPoint.firstLineStartPoint.y))
+        paralelPath.addLine(to: CGPoint(x: fromPoint.firstLineStartPoint.x + CGFloat(lineLenght), y: fromPoint.firstLineStartPoint.y))
+        
+        paralelPath.move(to: CGPoint(x: fromPoint.secondLineStartPoint.x, y: fromPoint.secondLineStartPoint.y))
+        paralelPath.addLine(to: CGPoint(x: fromPoint.secondLineStartPoint.x + CGFloat(lineLenght), y: fromPoint.secondLineStartPoint.y))
+        
+        //LAYER
+        let secondSL = CAShapeLayer()
+        secondSL.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
+        secondSL.path = paralelPath.cgPath
+        secondSL.fillColor = UIColor.clear.cgColor
+        secondSL.strokeColor = UIColor.black.cgColor
+        secondSL.backgroundColor = UIColor.red.cgColor
+        self.view.layer.addSublayer(secondSL)
+        
+        
+        //ANIMATION
+        let drawLineAnim = CABasicAnimation(keyPath: "path")
+        drawLineAnim.duration = 0.5
+        drawLineAnim.fromValue = secondSL.path
+        drawLineAnim.toValue = xPath.cgPath
+        drawLineAnim.fillMode = kCAFillModeForwards
+        drawLineAnim.isRemovedOnCompletion = false
+//        secondSL.add(drawLineAnim, forKey: "animateLines")
+        
+        let lineWidthAnimation = CABasicAnimation(keyPath: "lineWidth")
+        lineWidthAnimation.duration = 0.5
+        lineWidthAnimation.fromValue = 5.0
+        lineWidthAnimation.toValue = 10.0
+        lineWidthAnimation.fillMode = kCAFillModeForwards
+        lineWidthAnimation.isRemovedOnCompletion = false
+//        secondSL.add(animation, forKey: "animateLines")
+        
+        print("timeNow: \(Date().timeIntervalSinceNow + 3)")
+        
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.beginTime = CACurrentMediaTime() + 3
+        groupAnimation.duration = 3.5
+        groupAnimation.animations = [drawLineAnim, lineWidthAnimation]
+        groupAnimation.isRemovedOnCompletion = false
+        
+        secondSL.add(groupAnimation, forKey: "groupAnimation")
+    }
 }
 
 
