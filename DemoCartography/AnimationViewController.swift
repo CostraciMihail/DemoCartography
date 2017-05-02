@@ -30,8 +30,11 @@ class AnimationViewController: UIViewController {
         //UNCOMMENT TO ANIMATE DRAWING CIRCLE
 //        self.animateDrawingCircle()
         
-        
+//        UNCOMMENT TO ADD LINES TRANSITION FROM PARALEL TO X STAYLE
         self.animateDrawingXLine()
+        
+        //UNCOMMENT TO ADD ANIMATION OF LINEDASH (INTRERUPTED LINE)
+//        self.animateLineDash()
         
     }
     
@@ -123,26 +126,29 @@ class AnimationViewController: UIViewController {
         let lineLenght = Float(80)
         let fromPoint = coordinatesForLinesInSquare(withSize: laySize, lineLenght: lineLenght, withShowStyle: .xStyle)
         
-        // X VIEW
+        
+        // X STYLE
         //BEZIER
         let xPath = UIBezierPath()
         xPath.lineWidth = 5
         xPath.move(to: CGPoint(x: fromPoint.firstLineStartPoint.x, y: fromPoint.firstLineStartPoint.y))
         xPath.addLine(to: CGPoint(x: fromPoint.firstLineEndPoint.x, y: fromPoint.firstLineEndPoint.y))
-
+        
         xPath.move(to: CGPoint(x: fromPoint.secondLineStartPoint.x, y: fromPoint.secondLineStartPoint.y))
         xPath.addLine(to: CGPoint(x: fromPoint.secondLineEndPoint.x, y: fromPoint.secondLineEndPoint.y))
         
         //LAYER
-        let firstSL = CAShapeLayer()
-        firstSL.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
-        firstSL.path = xPath.cgPath
-        firstSL.fillColor = UIColor.clear.cgColor
-        firstSL.strokeColor = UIColor.black.cgColor
-        firstSL.backgroundColor = UIColor.red.cgColor
-        self.view.layer.addSublayer(firstSL)
+        let firstLayer = CAShapeLayer()
+        firstLayer.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
+        firstLayer.path = xPath.cgPath
+        firstLayer.lineWidth = 5
+        firstLayer.fillColor = UIColor.clear.cgColor
+        firstLayer.strokeColor = UIColor.black.cgColor
+        firstLayer.backgroundColor = UIColor.red.cgColor
+        self.view.layer.addSublayer(firstLayer)
         
-        //PARALEL VIEW
+        
+        //PARALEL STYLE
         //BEZIER
         let paralelPath = UIBezierPath()
         paralelPath.lineWidth = 5
@@ -153,20 +159,20 @@ class AnimationViewController: UIViewController {
         paralelPath.addLine(to: CGPoint(x: fromPoint.secondLineStartPoint.x + CGFloat(lineLenght), y: fromPoint.secondLineStartPoint.y))
         
         //LAYER
-        let secondSL = CAShapeLayer()
-        secondSL.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
-        secondSL.path = paralelPath.cgPath
-        secondSL.fillColor = UIColor.clear.cgColor
-        secondSL.strokeColor = UIColor.black.cgColor
-        secondSL.backgroundColor = UIColor.red.cgColor
-        self.view.layer.addSublayer(secondSL)
+        let secondLayer = CAShapeLayer()
+        secondLayer.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
+        secondLayer.path = paralelPath.cgPath
+        secondLayer.fillColor = UIColor.clear.cgColor
+        secondLayer.strokeColor = UIColor.black.cgColor
+        secondLayer.backgroundColor = UIColor.red.cgColor
+        self.view.layer.addSublayer(secondLayer)
         
         
         //ANIMATION
         let drawLineAnim = CABasicAnimation(keyPath: "path")
         drawLineAnim.duration = 0.5
-        drawLineAnim.fromValue = secondSL.path
-        drawLineAnim.toValue = xPath.cgPath
+        drawLineAnim.fromValue = secondLayer.path
+        drawLineAnim.toValue = firstLayer.path
         drawLineAnim.fillMode = kCAFillModeForwards
         drawLineAnim.isRemovedOnCompletion = false
 //        secondSL.add(drawLineAnim, forKey: "animateLines")
@@ -178,16 +184,47 @@ class AnimationViewController: UIViewController {
         lineWidthAnimation.fillMode = kCAFillModeForwards
         lineWidthAnimation.isRemovedOnCompletion = false
 //        secondSL.add(animation, forKey: "animateLines")
-        
-        print("timeNow: \(Date().timeIntervalSinceNow + 3)")
-        
+     
         let groupAnimation = CAAnimationGroup()
-        groupAnimation.beginTime = CACurrentMediaTime() + 3
+        groupAnimation.beginTime = CACurrentMediaTime() + 1.5
         groupAnimation.duration = 3.5
         groupAnimation.animations = [drawLineAnim, lineWidthAnimation]
         groupAnimation.isRemovedOnCompletion = false
         
-        secondSL.add(groupAnimation, forKey: "groupAnimation")
+        secondLayer.add(groupAnimation, forKey: "groupAnimation")
+    }
+    
+    
+    func animateLineDash() {
+        
+        let laySize = CGSize(width: 200, height: 200)
+        let lineLenght = Float(80)
+        let fromPoint = coordinatesForLinesInSquare(withSize: laySize, lineLenght: lineLenght, withShowStyle: .xStyle)
+        
+        let xPath = UIBezierPath()
+        xPath.lineWidth = 5
+        xPath.move(to: CGPoint(x: fromPoint.firstLineStartPoint.x, y: fromPoint.firstLineStartPoint.y))
+        xPath.addLine(to: CGPoint(x: fromPoint.firstLineEndPoint.x, y: fromPoint.firstLineEndPoint.y))
+        xPath.move(to: CGPoint(x: fromPoint.secondLineStartPoint.x, y: fromPoint.secondLineStartPoint.y))
+        xPath.addLine(to: CGPoint(x: fromPoint.secondLineEndPoint.x, y: fromPoint.secondLineEndPoint.y))
+        
+        //LAYER
+        let firstSL = CAShapeLayer()
+        firstSL.frame = CGRect(x: 10, y: 30, width: laySize.width, height: laySize.height)
+        firstSL.path = xPath.cgPath
+        firstSL.fillColor = UIColor.clear.cgColor
+        firstSL.strokeColor = UIColor.black.cgColor
+        firstSL.backgroundColor = UIColor.red.cgColor
+        firstSL.lineWidth = 5
+        firstSL.lineDashPattern = [10,5,5,5,2]
+        self.view.layer.addSublayer(firstSL)
+        
+        let shapeDashAnimation = CABasicAnimation(keyPath: "lineDashPhase")
+        shapeDashAnimation.duration = 4.0
+        shapeDashAnimation.fromValue = 0
+        shapeDashAnimation.toValue = firstSL.lineDashPattern?.reduce(0) { $0 + $1.intValue }
+        shapeDashAnimation.repeatCount = Float.greatestFiniteMagnitude
+        firstSL.add(shapeDashAnimation, forKey: "lineDashPhase")
     }
 }
 
